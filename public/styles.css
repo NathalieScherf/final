@@ -1,0 +1,12 @@
+
+*{
+    font-family: 'Quicksand', sans-serif;
+}
+
+
+.selectedItem img{
+
+    width: 200px;
+    height: auto;
+
+}
