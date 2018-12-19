@@ -2,7 +2,7 @@ import React from 'react';
 import{ connect } from 'react-redux';
 import {initSocket} from './socket';
 import Selection from './selection';
-import {hideButton, selectedPlants, selectedLoc} from './actions';
+import {hideButton, selectedLoc, newSelectionPlant, selectedPol} from './actions';
 class SelectPlants extends React.Component{
     constructor(){
         super();
@@ -18,69 +18,124 @@ class SelectPlants extends React.Component{
     handleInputChangeLoc(e) {
         const target = e.target;
         //const value = target.type === 'checkbox' ? target.checked : target.value;
-        //const location = target.name;
-        //    this.props.dispatch(selectedLoc(location));
+        const location = target.value;
+        //this.props.dispatch(selectedLoc(location));
         //    let socket = initSocket();
-        //    console.log("in location", this.props);
+        //    console.log("in location", this.state);
         //    socket.emit('changeLocation', target.name, this.props.selection);
-        if (target.name=='sunny'){
+        if (target.value=='sunny'){
             this.setState({
                 sunny: true
             });
+            this.props.dispatch(selectedLoc(location));
         }
-        if (target.name=='shade'){
+        if (target.value=='shade'){
             this.setState({
                 shade: true
             });
+            this.props.dispatch(selectedLoc(location));
         }
-        if (target.name=='partial_shade'){
+        if (target.value=='partial_shade'){
             this.setState({
                 partial_shade: true
             });
+            this.props.dispatch(selectedLoc(location));
         }
+        console.log("from handle change location", this.props);
+        //change selection responsive:
+        if(this.props.location =='sunny' && target.value =='shade'){
+            console.log("this.state from inside ifblock",this.state, this.props, target.value);
+            let socket = initSocket();
+            //    var LocObject={shade: true};
+            socket.emit('changedSelectionLocShade', true);
+        }
+        if(this.props.location == 'partial_shade' && target.value =='shade'){
+            console.log("this.state from inside ifblock", this.props, target.value);
+            let socket = initSocket();
+            socket.emit('changedSelectionLocShade', true);
+        }
+        if(this.props.location =='sunny' && target.value =='partial_shade'){
+            console.log("this.state from inside ifblock", this.props, target.value);
+
+            let socket = initSocket();
+            socket.emit('changedSelectionLocBoth', true);
+        }
+        if(this.props.location=='shade' && target.value =='partial_shade'){
+            console.log("this.state from inside ifblock", this.props, target.value);
+
+            let socket = initSocket();
+            socket.emit('changedSelectionLocBoth', true);
+        }
+        if(this.props.location=='partial_shade' && target.value =='sunny'){
+            console.log("this.state from inside ifblock", this.props, target.value);
+
+            let socket = initSocket();
+            socket.emit('changedSelectionLocSun', true);
+        }
+        if(this.props.location=='shade' && target.value =='sunny'){
+            console.log("this.state from inside ifblock", this.props, target.value);
+
+            let socket = initSocket();
+            socket.emit('changedSelectionLocSun', true);
+        }
+
     }
     handleInputChangePol(e) {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
-        const polinator = target.name;
+
         //    this.props.dispatch(selectedLoc(location));
         //    let socket = initSocket();
-        console.log("in polinator", polinator);
+
         //    socket.emit('changeLocation', target.name, this.props.selection);
-        if(polinator == "yes"){
+        if(target.value == "yes"){
             this.setState({
                 polinator: true
-            });}
-        if(polinator == "no"){
+            });
+            this.props.dispatch(selectedPol(target.value));}
+        if(target.value == "no"){
             this.setState({
                 polinator: false
-            });}
+            });
+            this.props.dispatch(selectedPol(target.value));}
+        if(target.value == "indeter"){
+            this.setState({
+                polinator: 'indeter'
+            });
+            this.props.dispatch(selectedPol(target.value));}
     }
 
     handleInputChangePlant(e) {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
-        console.log("value of target", value);
-        let plant_type = target.name;
 
+        let plant_type = target.name;
         this.setState({
             plant_type: plant_type,
         });
-        //    this.props.dispatch(selectedPlants(plant_type));
+
         if(this.props.plants !== undefined){
-            console.log("this.state from inside ifblock", this.props, target.name);
+        //    console.log("this.state from inside ifblock", this.props, target.name);
             //let plant_type = target.name;
             this.setState({
                 plant_type: plant_type,
             });
+            this.props.dispatch(newSelectionPlant(plant_type));
+            //in i props
+            console.log("this.state from inside ifblock in change plant", this.props);
             let socket = initSocket();
-            socket.emit('changedSelection', target.name);
+            var newPlant=target.name;
+            var oldLocation=this.props.location;
+            var oldPol=this.props.polSelected;
+            //skicka plant_type
+            socket.emit('changedSelection', {newPlant, oldLocation, oldPol});
         }
         if (e.target.checked == false){
             console.log("filter out", target.name);
             let socket = initSocket();
             socket.emit('removeSelection', target.name);
         }
+
 
 
 
@@ -91,6 +146,7 @@ class SelectPlants extends React.Component{
         console.log("state in handle selection sent", this.state);
         socket.emit('plantsSelected', this.state);
         this.props.dispatch(hideButton());
+
     }
 
 
@@ -116,22 +172,24 @@ class SelectPlants extends React.Component{
                         </label>
                         <h3>How much light does your balcony get?</h3>
                         <label>Sunny
-                            <input type="checkbox"  name="sunny" onChange={this.handleInputChangeLoc}/>
+                            <input type="radio"  name="light" value="sunny" onChange={this.handleInputChangeLoc}/>
                         </label>
                         <label>Shady
-                            <input type="checkbox"  name="shade" onChange={this.handleInputChangeLoc}/>
+                            <input type="radio" name="light" value="shade" onChange={this.handleInputChangeLoc}/>
                         </label>
                         <label>Both
-                            <input type="checkbox" name="partial_shade" onChange={this.handleInputChangeLoc}/>
+                            <input type="radio" name="light" value="partial_shade" onChange={this.handleInputChangeLoc}/>
                         </label>
                         <h3>Do you want to attract polinators?</h3>
                         <label>Yes, please!
-                            <input type="checkbox"  name="yes" onChange={this.handleInputChangePol}/>
+                            <input type="radio"  name="pol" value="yes" onChange={this.handleInputChangePol}/>
                         </label>
                         <label>No!
-                            <input type="checkbox"  name="no" onChange={this.handleInputChangePol}/>
+                            <input type="radio"  name="pol" value="no" onChange={this.handleInputChangePol}/>
                         </label>
-
+                        <label>I do not  care!
+                            <input type="radio"  name="pol" value="indeter" onChange={this.handleInputChangePol}/>
+                        </label>
                         <br/>
                         {!this.props.button &&     <button > Show plants </button>}
 
@@ -150,11 +208,13 @@ function mapStateToProps(state) {
     var buttonIsHidden =state.buttonIsHidden;
     var selectedPlants=state.selPlants;
     var location=state.location;
+    var polSelected=state.polSelected;
     return {
         plants: plants,
         button: buttonIsHidden,
         selection: selectedPlants,
-        location: location
+        location: location,
+        polSelected:polSelected
 
     };
 }

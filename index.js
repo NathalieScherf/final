@@ -60,52 +60,158 @@ server.listen(8080, function() {
 });
 
 // all of the server side socket code goes here below server.listen
-// onlineUsers object wil maintain a list of everyone cureently online:
-//let onlineUsers={};
-// do I need an object of the current plant selection to modify when new selection is made? OR do a whole new query?
 
+// do I need an object of the current plant selection to modify when new selection is made? OR do a whole new query?
+let arrOfPlants=[];
 io.on('connection', socket =>{
     console.log(`socket  connected`);
-    //    let socketId= socket.id;
-    //make req.session.userId available in socket:
-    //    let userId =socket.request.session.userId;
-    // set key to socketId and userId as value
-    //    onlineUsers[socketId]=userId;
-    // put selected plants into an object:
-    // cahnge: let arrOfIds=Object.values(onlineUsers);
 
     socket.on('plantsSelected', plantSelection =>{
         console.log("in plantsSelected", plantSelection);
-        // för ett kriteria
-        /*if(!plantSelection.polinator){
-            db.getSelectedPlantsType(plantSelection.plant_type).then( results =>{
+        arrOfPlants=Object.values(plantSelection);
+        console.log("arrOfPlants", arrOfPlants);
+        // sunny location
+        if(plantSelection.sunny &&plantSelection.polinator !=='indeter'){
+            db.getSelectedPlantsSun(plantSelection.plant_type, plantSelection.polinator, plantSelection.sunny).then( results =>{
+                console.log("results from query sunny", results);
+                socket.emit('displayPlants', results);
+            }).catch( err=> {
+                console.log("error  get selected plants", err);
+            });
+        }
+
+        // för  shadey location
+        if(plantSelection.shade &&plantSelection.polinator !=='indeter'){
+            db.getSelectedPlantsShade(plantSelection.plant_type, plantSelection.polinator, plantSelection.shade).then( results =>{
+                console.log("results from query shade", results);
+                socket.emit('displayPlants', results);
+            }).catch( err=> {
+                console.log("error  get selected plants", err);
+            });
+        }
+        if(plantSelection.partial_shade &&plantSelection.polinator !=='indeter') {
+            db.getSelectedPlantsBoth(plantSelection.plant_type, plantSelection.polinator, plantSelection.partial_shade).then( results =>{
                 console.log("results from query", results);
                 socket.emit('displayPlants', results);
             }).catch( err=> {
                 console.log("error  get selected plants", err);
             });
-        }*/
+        }
+        if(plantSelection.partial_shade && plantSelection.polinator =='indeter'){
+            console.log("make a request without polinator");
+            db.getSelectedPlantsBothNoPol(plantSelection.plant_type, plantSelection.partial_shade).then( results =>{
+                console.log("results from query", results);
+                socket.emit('displayPlants', results);
+            }).catch( err=> {
+                console.log("error  get selected plants", err);
+            });
+        }
 
-        //if(plantSelection.polinator){
-        // för tva kriteria
-        db.getSelectedPlants(plantSelection.plant_type, plantSelection.polinator).then( results =>{
-            console.log("results from query", results);
-            socket.emit('displayPlants', results);
-        }).catch( err=> {
-            console.log("error  get selected plants", err);
-        });
-        //}
+        if(plantSelection.sunny && plantSelection.polinator =='indeter'){
+            console.log("make a request without polinator");
+            db.getSelectedPlantsSunnyNoPol(plantSelection.plant_type, plantSelection.sunny).then( results =>{
+                console.log("results from query", results);
+                socket.emit('displayPlants', results);
+            }).catch( err=> {
+                console.log("error  get selected plants", err);
+            });
+        }
+
+        if(plantSelection.shade && plantSelection.polinator =='indeter'){
+            console.log("make a request without polinator");
+            db.getSelectedPlantsShadeNoPol(plantSelection.plant_type, plantSelection.shade).then( results =>{
+                console.log("results from query", results);
+                socket.emit('displayPlants', results);
+            }).catch( err=> {
+                console.log("error  get selected plants", err);
+            });
+        }
     });
 
-    //reload selection if change in form in selectPlants.js
+    //reload selection if change in form in selectPlants.js ONLY plant_type
     socket.on('changedSelection', newSelection=>{
+        //arrOfPlants=Object.values(newSelection);
+        //console.log("arrOfPlants after new selection", arrOfPlants);
         console.log("newSelection from changedSelection in index", newSelection);
-        // get the new selection of plants: change name of query
-        db.getNewSelectedPlants(newSelection).then(results=>{
-            console.log("results from newSelection", results);
-            socket.emit('newSelection', results);
+        // get the new selection of plants:
+        if(newSelection.oldLocation=='sunny', newSelection.oldPol=='yes'){
+            db.getNewSelectedPlantsSunny(newSelection.newPlant).then(results=>{
+                console.log("results from newSelection sunny pol", results);
+                socket.emit('newSelection', results);
+            });}
+        else if(newSelection.oldLocation=='partial_shade', newSelection.oldPol=='yes'){
+            db.getNewSelectedPlantsPS(newSelection.newPlant).then(results=>{
+                console.log("results from newSelection partial pol", results);
+                socket.emit('newSelection', results);
+            });}
+        else if(newSelection.oldLocation=='shade', newSelection.oldPol=='yes'){
+            db.getNewSelectedPlantsShade(newSelection.newPlant).then(results=>{
+                console.log("results from newSelection shade pol", results);
+                socket.emit('newSelection', results);
+            });}
+        else     if(newSelection.oldLocation=='sunny', newSelection.oldPol=='no'){
+            db.getNewSelectedPlantsSunnyNO(newSelection.newPlant).then(results=>{
+                console.log("results from newSelection sunny pol", results);
+                socket.emit('newSelection', results);
+            });}
+        else if(newSelection.oldLocation=='partial_shade', newSelection.oldPol=='no'){
+            db.getNewSelectedPlantsPSNO(newSelection.newPlant).then(results=>{
+                console.log("results from newSelection partial pol", results);
+                socket.emit('newSelection', results);
+            });}
+        else if(newSelection.oldLocation=='shade', newSelection.oldPol=='no'){
+            db.getNewSelectedPlantsShadeNO(newSelection.newPlant).then(results=>{
+                console.log("results from newSelection shade pol", results);
+                socket.emit('newSelection', results);
+            });}
+        else     if(newSelection.oldLocation=='sunny', newSelection.oldPol=='indeter'){
+            db.getNewSelectedPlantsSunnyIND(newSelection.newPlant).then(results=>{
+                console.log("results from newSelection sunny pol", results);
+                socket.emit('newSelection', results);
+            });}
+        else if(newSelection.oldLocation=='partial_shade', newSelection.oldPol=='indeter'){
+            db.getNewSelectedPlantsPSIND(newSelection.newPlant).then(results=>{
+                console.log("results from newSelection partial pol", results);
+                socket.emit('newSelection', results);
+            });}
+        else if(newSelection.oldLocation=='shade', newSelection.oldPol=='indeter'){
+            db.getNewSelectedPlantsShadeIND(newSelection.newPlant).then(results=>{
+                console.log("results from newSelection shade pol", results);
+                socket.emit('newSelection', results);
+            });}
+    });
+
+
+    // get the new selection of plants based on location:
+    //for change to shade:
+    socket.on('changedSelectionLocShade', newLocation=>{
+        console.log("arrOfPlants from loc shade", arrOfPlants[0]);
+        var plant=arrOfPlants[0];
+        db.getNewLocShade(newLocation, plant).then(results=>{
+            //console.log("results from newLocation", results);
+            socket.emit('newLocation', results);
         });
     });
+    //for change to sun:
+    socket.on('changedSelectionLocSun', newLocation=>{
+        var plant=arrOfPlants[0];
+        db.getNewLocSun(newLocation, plant).then(results=>{
+            //console.log("results from newLocation", results);
+            socket.emit('newLocation', results);
+        });
+    });
+    //for change to both:
+    socket.on('changedSelectionLocBoth', newLocation=>{
+        var plant=arrOfPlants[0];
+        db.getNewLocBoth(newLocation, plant).then(results=>{
+            //console.log("results from newLocation", results);
+            socket.emit('newLocation', results);
+        });
+    });
+
+
+
+
     socket.on('removeSelection', remPlants=>{
         socket.emit('removeSelection', remPlants);
     });

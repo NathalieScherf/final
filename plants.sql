@@ -96,7 +96,7 @@ shade) VALUES (
     'false',
     'small',
     '/Tulip.jpg',
-    'an early flower, save the buds after flowering and replant in autom for new flowers next year',
+    'an early flower, save the buds after flowering and replant in fall for new flowers next year',
     'april to may',
     'perennial',
     'false',
@@ -429,4 +429,40 @@ INSERT INTO imgProperties (plant_name, by, license, link ) VALUES(
     'unknown',
     'CC BY-SA 3.0',
     'https://commons.wikimedia.org/w/index.php?curid=121795'
+);
+
+INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy, sunny,
+partial_shade,
+shade) VALUES (
+    'vegetable',
+    'Potato',
+    'false',
+    'large',
+    '/Potatoes.jpg',
+    'Plant in a deep container, at least 10 L for each potato. Harvest the potatoes 2-3 weeks after the plant has died.',
+    'june to october',
+    'annual',
+    'false',
+    'true',
+    'false',
+    'false'
+);
+
+INSERT INTO colors (plant_name, purple, blue, white) VALUES(
+    (SELECT name FROM plants WHERE name='Potato'),
+    'true',
+    'true',
+    'true'
+);
+
+INSERT INTO location (plant_name, sunny) VALUES (
+    (SELECT name FROM plants WHERE name='Potato'),
+    'true'
+);
+INSERT INTO imgProperties (plant_name, by, license, link ) VALUES(
+    (SELECT name FROM plants WHERE name='Potato'),
+
+    'AfroBrazilian ',
+    'CC BY-SA 3.0',
+    'https://commons.wikimedia.org/w/index.php?curid=20050187'
 );

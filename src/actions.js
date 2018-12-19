@@ -27,6 +27,22 @@ export async function removePlants(removedPlants) {
     };
 }
 
+
+export async function newSelectionPlant(selection){
+    console.log("selectedPlants", selection );
+    return {
+        type: 'SELECT_PLANTS',
+        newPlantSelected: selection
+    };
+}
+
+export async function selectedPol(selection){
+    console.log("selectedPlants", selection );
+    return {
+        type: 'SELECT_POL',
+        polSelected: selection
+    };
+}
 export async function selectedPlants(selection){
     console.log("selectedPlants", );
     return {
@@ -40,6 +56,13 @@ export async function selectedLoc(selection){
     return {
         type: 'SELECT_LOC',
         location: selection
+    };
+}
+export async function changeLocation(selection){
+    console.log("changedLocation", selection);
+    return {
+        type: 'CHANGE_LOC',
+        plants: selection
     };
 }
 export async function hideButton(){

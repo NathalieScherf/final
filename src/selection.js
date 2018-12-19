@@ -51,6 +51,7 @@ class Selection extends React.Component{
                         }
                     )}
                 </div>
+                {this.props.button && <button > Export these plants  </button>}
             </div>
         );
     }
