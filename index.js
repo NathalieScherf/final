@@ -75,29 +75,44 @@ io.on('connection', socket =>{
     // cahnge: let arrOfIds=Object.values(onlineUsers);
 
     socket.on('plantsSelected', plantSelection =>{
-        console.log("in plantsSelected", plantSelection.plant_type);
+        console.log("in plantsSelected", plantSelection);
+        // för ett kriteria
+        /*if(!plantSelection.polinator){
+            db.getSelectedPlantsType(plantSelection.plant_type).then( results =>{
+                console.log("results from query", results);
+                socket.emit('displayPlants', results);
+            }).catch( err=> {
+                console.log("error  get selected plants", err);
+            });
+        }*/
 
-
-        db.getSelectedPlants(plantSelection.plant_type).then( results =>{
+        //if(plantSelection.polinator){
+        // för tva kriteria
+        db.getSelectedPlants(plantSelection.plant_type, plantSelection.polinator).then( results =>{
             console.log("results from query", results);
             socket.emit('displayPlants', results);
         }).catch( err=> {
             console.log("error  get selected plants", err);
         });
+        //}
     });
 
     //reload selection if change in form in selectPlants.js
     socket.on('changedSelection', newSelection=>{
         console.log("newSelection from changedSelection in index", newSelection);
         // get the new selection of plants: change name of query
-        db.getSelectedPlants(newSelection).then(results=>{
+        db.getNewSelectedPlants(newSelection).then(results=>{
             console.log("results from newSelection", results);
             socket.emit('newSelection', results);
-
         });
-        socket.on('removeSelection', remPlants=>{
-            socket.emit('removeSelection', remPlants);
-        });
+    });
+    socket.on('removeSelection', remPlants=>{
+        socket.emit('removeSelection', remPlants);
+    });
+    //reload selection with location:
+    socket.on('changeLocation', (location, selection) =>{
+        console.log("in cahnge location", location, selection);
+    //    db.getLocation(location);
     });
 
 

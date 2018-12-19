@@ -10,7 +10,22 @@ if (process.env.DATABASE_URL) {
     );
 }
 
-exports.getSelectedPlants = plant_type => {
+exports.getSelectedPlants = (plant_type, polinator) => {
+    console.log("plant_type from db", plant_type);
+    return db
+        .query(
+            `SELECT*
+            FROM plants
+        WHERE plant_type=$1 AND polinator=$2`,
+            [plant_type, polinator]
+        )
+        .then(function(results) {
+            console.log("plants selected db.js: ", results.rows);
+            return results.rows;
+        });
+};
+exports.getSelectedPlantsType = (plant_type) => {
+    console.log("plant_type from db", plant_type);
     return db
         .query(
             `SELECT*
@@ -19,11 +34,11 @@ exports.getSelectedPlants = plant_type => {
             [plant_type]
         )
         .then(function(results) {
-            //console.log("plants selected db.js: ", results.rows);
+            console.log("plants selected db.js: ", results.rows);
             return results.rows;
         });
 };
-exports.getSelectedPlantsLight = plant_type => {
+exports.getNewSelectedPlants = plant_type => {
     return db
         .query(
             `SELECT*

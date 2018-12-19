@@ -27,13 +27,15 @@ class Selection extends React.Component{
         return(
             <div>
 
-                <h1>HERE IS YOUR SELECTION!</h1>
+                {this.props.button && <h1>HERE IS YOUR SELECTION!</h1>}
 
                 <div className='selection-contianer'
                     ref={elem => (this.elem = elem)}>
+
                     {this.props.plants && this.props.plants.map(
                         (plant, idx) => {
                             return (
+
                                 <div className='selectedItem' key={idx} >
 
                                     <img  src={plant.img} />
@@ -55,11 +57,12 @@ class Selection extends React.Component{
 }
 
 function mapStateToProps(state) {
-    console.log("state from selection", state);
+    console.log("state from selection Component", state);
     var plants =state.plants;
-
+    var buttonIsHidden =state.buttonIsHidden;
     return {
         plants: plants,
+        button: buttonIsHidden,
 
     };
 }

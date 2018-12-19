@@ -8,5 +8,11 @@
 
     width: 200px;
     height: auto;
+    border: 5px black solid;
+    border-radius: 20px;
 
+}
+
+.page{
+    text-align: center;
 }

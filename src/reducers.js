@@ -2,8 +2,23 @@
 export default function reducer(state = {}, action) {
 
 
-    if(action.type=='DISPLAY_PLANTS'){
+    if(action.type=='SELECT_PLANTS'){
         console.log(action);
+
+        state = {
+            ...state,
+            selection: action.selPlants
+        };
+    }
+    if(action.type=='SELECT_LOC'){
+        console.log("state from loc in reducer:", state);
+        state = {
+            ...state,
+            location: action.location
+        };
+    }
+    if(action.type=='DISPLAY_PLANTS'){
+        console.log("action from reducer", action);
         state = {
             ...state,
             plants:  action.plants

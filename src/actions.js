@@ -10,7 +10,7 @@ export async function showPlants(listOfPlants) {
 }
 export async function changeDisplay(listOfPlants) {
 
-    console.log("add plants ", listOfPlants);
+    console.log("add plants in action ", listOfPlants);
     return {
         type: 'ADD_PLANTS',
         newPlants: listOfPlants
@@ -27,6 +27,21 @@ export async function removePlants(removedPlants) {
     };
 }
 
+export async function selectedPlants(selection){
+    console.log("selectedPlants", );
+    return {
+        type: 'SELECT_PLANTS',
+        selPlants: selection
+    };
+}
+
+export async function selectedLoc(selection){
+    console.log("selectedLocation", selection);
+    return {
+        type: 'SELECT_LOC',
+        location: selection
+    };
+}
 export async function hideButton(){
     console.log("hide button");
     return {

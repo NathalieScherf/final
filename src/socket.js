@@ -8,10 +8,8 @@ export function initSocket(store){
     if (!socket){
         socket= io.connect();
         //listen for event:
-
-
         socket.on('displayPlants', listOfPlants=>{
-            console.log('listOfPlants', listOfPlants);
+            console.log('listOfPlants in socket', listOfPlants);
             store.dispatch( showPlants(listOfPlants) );
         });
         socket.on('newSelection', listOfPlants=>{

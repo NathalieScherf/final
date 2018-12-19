@@ -14,7 +14,10 @@ img TEXT,
 description TEXT,
 months VARCHAR (200),
 age VARCHAR (200),
-hardy BOOLEAN
+hardy BOOLEAN,
+sunny  BOOLEAN,
+partial_shade  BOOLEAN,
+shade  BOOLEAN
 );
 
 CREATE TABLE colors(
@@ -46,7 +49,9 @@ CREATE TABLE imgProperties(
     link TEXT
 );
 
-INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy) VALUES (
+INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy, sunny,
+partial_shade,
+shade ) VALUES (
     'flower',
     'Snapdragon',
     'true',
@@ -55,6 +60,9 @@ INSERT INTO plants(plant_type, name, polinator, size, img, description, months, 
     'an easy plant which will flower all summer',
     'may to october',
     'annual',
+    'false',
+    'true',
+    'true',
     'false'
 );
 
@@ -80,7 +88,9 @@ INSERT INTO imgProperties (plant_name, by, license, link ) VALUES(
 );
 
 
-INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy) VALUES (
+INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy, sunny,
+partial_shade,
+shade) VALUES (
     'flower',
     'Tulips',
     'false',
@@ -89,6 +99,9 @@ INSERT INTO plants(plant_type, name, polinator, size, img, description, months, 
     'an early flower, save the buds after flowering and replant in autom for new flowers next year',
     'april to may',
     'perennial',
+    'false',
+    'true',
+    'true',
     'false'
 );
 
@@ -113,7 +126,9 @@ INSERT INTO imgProperties (plant_name, by, class, license, link ) VALUES(
     'https://commons.wikimedia.org/w/index.php?curid=58628976'
 );
 
-INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy) VALUES (
+INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy, sunny,
+partial_shade,
+shade) VALUES (
     'vegetable',
     'Tomatoes',
     'true',
@@ -122,6 +137,9 @@ INSERT INTO plants(plant_type, name, polinator, size, img, description, months, 
     'choose a small type, which will give you sweet fruits',
     'july to august',
     'annual',
+    'false',
+    'true',
+    'false',
     'false'
 );
 
@@ -135,7 +153,9 @@ INSERT INTO location (plant_name, sunny) VALUES (
     'true'
 );
 
-INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy) VALUES (
+INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy, sunny,
+partial_shade,
+shade) VALUES (
     'herb',
     'Basil',
     'true',
@@ -144,6 +164,9 @@ INSERT INTO plants(plant_type, name, polinator, size, img, description, months, 
     'Just put a plant from the supermerket into a larger container. Basil attracts bees only when the plant carries flowers.',
     'june to october',
     'annual',
+    'false',
+    'true',
+    'true',
     'false'
 );
 
@@ -164,7 +187,9 @@ INSERT INTO imgProperties (plant_name, by, license, link ) VALUES(
     'CC BY-SA 3.0',
     'https://commons.wikimedia.org/w/index.php?curid=1189407'
 );
-INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy) VALUES (
+INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy, sunny,
+partial_shade,
+shade) VALUES (
     'herb',
     'Lavender',
     'true',
@@ -173,7 +198,10 @@ INSERT INTO plants(plant_type, name, polinator, size, img, description, months, 
     'Plant in a well drained container and cut back one third of its height after flower and  in spring to promote more growth ',
     'july to september',
     'perennial',
-    'true'
+    'true',
+    'true',
+    'false',
+    'false'
 );
 
 INSERT INTO colors (plant_name, purple) VALUES(
@@ -193,7 +221,9 @@ INSERT INTO imgProperties (plant_name, by, license, link ) VALUES(
 );
 
 
-INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy) VALUES (
+INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy, sunny,
+partial_shade,
+shade) VALUES (
     'herb',
     'Catnip',
     'true',
@@ -202,7 +232,10 @@ INSERT INTO plants(plant_type, name, polinator, size, img, description, months, 
     'Plant in a well drained container, preferably not with other plants, as catnip spreads out.',
     'may to october',
     'perennial',
-    'true'
+    'true',
+    'true',
+    'false',
+    'false'
 );
 
 INSERT INTO colors (plant_name, green, white) VALUES(
@@ -223,7 +256,9 @@ INSERT INTO imgProperties (plant_name, by, license, link ) VALUES(
 );
 
 
-INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy) VALUES (
+INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy, sunny,
+partial_shade,
+shade) VALUES (
     'herb',
     'Mint',
     'true',
@@ -232,7 +267,10 @@ INSERT INTO plants(plant_type, name, polinator, size, img, description, months, 
     'Do not plant in the same container as other plants, as mint spreads out.',
     'may to september',
     'perennial',
-    'true'
+    'true',
+    'true',
+    'true',
+    'false'
 );
 
 INSERT INTO colors (plant_name, green, white) VALUES(
@@ -252,7 +290,9 @@ INSERT INTO imgProperties (plant_name, by, license, link ) VALUES(
     'CC BY-SA 2.5',
     'https://commons.wikimedia.org/w/index.php?curid=338932'
 );
-INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy) VALUES (
+INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy, sunny,
+partial_shade,
+shade) VALUES (
     'herb',
     'Chives',
     'true',
@@ -261,7 +301,10 @@ INSERT INTO plants(plant_type, name, polinator, size, img, description, months, 
     'The flowers are also edible.',
     'april to september',
     'perennial',
-    'true'
+    'true',
+    'true',
+    'true',
+    'false'
 );
 
 INSERT INTO colors (plant_name, green, purple) VALUES(
@@ -282,7 +325,9 @@ INSERT INTO imgProperties (plant_name, by, license, link ) VALUES(
     'https://commons.wikimedia.org/w/index.php?curid=2206077'
 );
 
-INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy) VALUES (
+INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy, sunny,
+partial_shade,
+shade) VALUES (
     'flower',
     'Sander''s tobacco',
     'true',
@@ -291,6 +336,9 @@ INSERT INTO plants(plant_type, name, polinator, size, img, description, months, 
     'Do not let the soil dry out completely',
     'may to october',
     'annual',
+    'false',
+    'true',
+    'false',
     'false'
 );
 
@@ -311,7 +359,9 @@ INSERT INTO imgProperties (plant_name, by, license, link ) VALUES(
     'CC BY 3.0',
     'https://commons.wikimedia.org/w/index.php?curid=15370191'
 );
-INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy) VALUES (
+INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy, sunny,
+partial_shade,
+shade) VALUES (
     'flower',
     'Coneflower',
     'true',
@@ -320,7 +370,10 @@ INSERT INTO plants(plant_type, name, polinator, size, img, description, months, 
     'Do not let the soil dry out completely. Cut of flowers after flowering.',
     'july to september',
     'perennial',
-    'true'
+    'true',
+    'true',
+    'true',
+    'false'
 );
 
 INSERT INTO colors (plant_name, purple, pink, yellow) VALUES(
@@ -342,7 +395,9 @@ INSERT INTO imgProperties (plant_name, by, license, link ) VALUES(
     'https://commons.wikimedia.org/w/index.php?curid=30273528'
 );
 
-INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy) VALUES (
+INSERT INTO plants(plant_type, name, polinator, size, img, description, months, age, hardy, sunny,
+partial_shade,
+shade) VALUES (
     'flower',
     'Hydrangea',
     'false',
@@ -351,6 +406,9 @@ INSERT INTO plants(plant_type, name, polinator, size, img, description, months, 
     'Cover in winter',
     'may to september',
     'perennial',
+    'true',
+    'false',
+    'true',
     'true'
 );
 
