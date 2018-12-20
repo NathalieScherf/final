@@ -1,5 +1,5 @@
 import * as io from 'socket.io-client';
-import {showPlants, changeDisplay, removePlants, changeLocation} from './actions';
+import {showPlants, changeDisplay, removePlants, changeLocation, changePolinator} from './actions';
 
 
 let socket;
@@ -24,6 +24,10 @@ export function initSocket(store){
         socket.on('newLocation', listOfPlants=>{
             console.log('newLocation', listOfPlants);
             store.dispatch(changeLocation(listOfPlants));
+        });
+        socket.on('newPolinator', listOfPlants=>{
+            console.log('newPolinator', listOfPlants);
+            store.dispatch(changePolinator(listOfPlants));
         });
         //most of our client side socket code will go here:
         //listen for stuff from the server: on('name of message from server', function )

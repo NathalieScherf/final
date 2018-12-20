@@ -26,7 +26,7 @@ class Selection extends React.Component{
 
         return(
             <div>
-
+                
                 {this.props.button && <h1>HERE IS YOUR SELECTION!</h1>}
 
                 <div className='selection-contianer'

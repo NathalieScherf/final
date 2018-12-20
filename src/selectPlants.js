@@ -81,13 +81,10 @@ class SelectPlants extends React.Component{
 
     }
     handleInputChangePol(e) {
+
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
 
-        //    this.props.dispatch(selectedLoc(location));
-        //    let socket = initSocket();
-
-        //    socket.emit('changeLocation', target.name, this.props.selection);
         if(target.value == "yes"){
             this.setState({
                 polinator: true
@@ -103,11 +100,40 @@ class SelectPlants extends React.Component{
                 polinator: 'indeter'
             });
             this.props.dispatch(selectedPol(target.value));}
+
+        //infoga change för polinator
+        if(this.props.polSelected !== undefined){
+            console.log("change in polinator", this.props);
+            if( this.props.polSelected !== 'no'&&target.value == 'no'){
+                console.log("change to no");
+                let socket = initSocket();
+
+                var oldLocation=this.props.location;
+                var pol=target.value;
+
+                socket.emit('changedSelectionPolNO', {oldLocation, pol});
+                //socket.emit('', true);
+            }
+            if(this.props.polSelected !== 'yes'&&target.value == 'yes' ){
+                console.log("change to yes");
+                let socket = initSocket();
+                oldLocation=this.props.location;
+                pol=target.value;
+                socket.emit('changedSelectionPolYES', {oldLocation, pol});
+            }
+            if(this.props.polSelected !== 'indeter'&&target.value == 'indeter'){
+                console.log("change to indeter");
+                let socket = initSocket();
+                oldLocation=this.props.location;
+                pol=target.value;
+                socket.emit('changedSelectionPolINDETER', {oldLocation, pol});
+            }
+        }
     }
 
     handleInputChangePlant(e) {
         const target = e.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        //const value = target.type === 'checkbox' ? target.checked : target.value;
 
         let plant_type = target.name;
         this.setState({

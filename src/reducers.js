@@ -3,7 +3,7 @@ export default function reducer(state = {}, action) {
 
 
     if(action.type=='SELECT_PLANTS'){
-        console.log(action);
+    //    console.log(action);
 
         state = {
             ...state,
@@ -11,7 +11,7 @@ export default function reducer(state = {}, action) {
         };
     }
     if(action.type=='SELECT_LOC'){
-        console.log("state from loc in reducer:", action.location);
+    //    console.log("state from loc in reducer:", action.location);
         state = {
             ...state,
             location: action.location,
@@ -19,7 +19,7 @@ export default function reducer(state = {}, action) {
         };
     }
     if(action.type=='SELECT_POL'){
-        console.log("state from loc in reducer:", action.polSelected);
+    //    console.log("state from loc in reducer:", action.polSelected);
         state = {
             ...state,
             polSelected: action.polSelected,
@@ -28,14 +28,14 @@ export default function reducer(state = {}, action) {
     }
 
     if(action.type=='DISPLAY_PLANTS'){
-        console.log("action from reducer puts into state", action);
+    //    console.log("action from reducer puts into state", action);
         state = {
             ...state,
             plants:  action.plants
         };
     }
     if(action.type=='ADD_PLANTS'){
-        console.log("reducer new plants", action.newPlants);
+    //    console.log("reducer new plants", action.newPlants);
         state = {
             ...state,
             plants:   [...state.plants, ...action.newPlants]
@@ -43,15 +43,21 @@ export default function reducer(state = {}, action) {
     }
     if(action.type=='CHANGE_LOC'){
         //filter:
-        console.log("from reducer change loc", state.plants, "and", action.plants, "and", state.location);
+    //    console.log("from reducer change loc", state.plants, "and", action.plants, "and", state.location);
         state = {
             ...state,
             plants:  action.plants
         };
     }
-
+    if(action.type=='CHANGE_POL'){
+    
+        state = {
+            ...state,
+            plants:  action.plants
+        };
+    }
     if(action.type=='REMOVE_PLANTS'){
-        console.log("reducer REMOVED plants", action.remPlants);
+    //    console.log("reducer REMOVED plants", action.remPlants);
 
         //filter:
         state = {

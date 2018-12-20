@@ -261,6 +261,19 @@ exports.getNewLocShade = (newLocation, plant) => {
             return results.rows;
         });
 };
+exports.getNewLocShadePol = (newLocation, plant, pol) => {
+    return db
+        .query(
+            `SELECT*
+            FROM plants
+        WHERE shade=$1 AND plant_type=$2 AND polinator=$3`,
+            [newLocation, plant, pol]
+        )
+        .then(function(results) {
+            console.log("plants selected db.js: ", results.rows);
+            return results.rows;
+        });
+};
 
 exports.getNewLocSun = (newLocation, plant) => {
     return db
@@ -269,6 +282,20 @@ exports.getNewLocSun = (newLocation, plant) => {
             FROM plants
         WHERE sunny=$1 AND  plant_type=$2`,
             [newLocation, plant]
+        )
+        .then(function(results) {
+            console.log("plants selected db.js: ", results.rows);
+            return results.rows;
+        });
+};
+
+exports.getNewLocSunPol = (newLocation, plant, pol) => {
+    return db
+        .query(
+            `SELECT*
+            FROM plants
+        WHERE sunny=$1 AND  plant_type=$2 AND polinator=$3`,
+            [newLocation, plant, pol]
         )
         .then(function(results) {
             console.log("plants selected db.js: ", results.rows);
@@ -284,7 +311,21 @@ exports.getNewLocBoth = (newLocation, plant) => {
             [newLocation, plant]
         )
         .then(function(results) {
-            console.log("plants selected db.js: ", results.rows);
+        //    console.log("plants selected db.js: ", results.rows);
+            return results.rows;
+        });
+};
+
+exports.getNewLocBothPol = (newLocation, plant, pol) => {
+    return db
+        .query(
+            `SELECT*
+            FROM plants
+        WHERE partial_shade=$1 AND  plant_type=$2 AND polinator=$3`,
+            [newLocation, plant, pol]
+        )
+        .then(function(results) {
+            //console.log("plants in change location pol both db.js: ", results.rows);
             return results.rows;
         });
 };
