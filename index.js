@@ -325,6 +325,8 @@ io.on('connection', socket =>{
         console.log("in cahnge location", location, selection);
     //    db.getLocation(location);
     });
-
+    socket.on('exportToPdf', list=>{
+        console.log("export to pdf", list);
+    });
 
 });

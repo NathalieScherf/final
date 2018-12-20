@@ -16,3 +16,8 @@
 .page{
     text-align: center;
 }
+
+.header-container{
+    background-image: url("/gras.jpg");
+
+}

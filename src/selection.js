@@ -1,32 +1,47 @@
 import React from 'react';
 import{ connect } from 'react-redux';
-import {initSocket} from './socket';
 
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 class Selection extends React.Component{
     constructor(){
         super();
+        this.exportToPdf = this.exportToPdf.bind(this);
     }
-    sendMessage(e){
-        let socket = initSocket();
-        if(e.which===13){
-            console.log("message was sent", e.target.value);
-            socket.emit('newMsg', e.target.value);
-            e.target.value ='';
-            e.preventDefault();
+    exportToPdf(e){
+
+        e.preventDefault();
+
+
+        console.log("submit to pdf", this.props.plants);
+        /*var arrayOfSelectionObj= this.props.plants;
+        let doc = new jsPDF();
+        doc.text( 50, 20,"Your selection:" );
+        var text = [];
+        for (var i in arrayOfSelectionObj){
+            text.push(arrayOfSelectionObj[i]['name'] + ' ' + arrayOfSelectionObj[i]['description']);
         }
+        doc.text(text, 20, 50);
+        doc.save('Test.pdf');*/
+
+
+        const input = document.getElementById('selection');
+        html2canvas(input, {scale:0.8}) //x
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF();
+                pdf.addImage(imgData, 'PNG', 0, 0);
+                pdf.save("download.pdf");
+            })
+        ;
     }
-    /*    componentDidUpdate(){
-        //need to add some code here
-        console.log("update", this.elem);
-        this.elem.scrollTop=this.elem.scrollHeight;
-    }*/
+
 
     render(){
 
         return(
-            <div>
-                
+            <div id='selection'>
+
                 {this.props.button && <h1>HERE IS YOUR SELECTION!</h1>}
 
                 <div className='selection-contianer'
@@ -51,7 +66,7 @@ class Selection extends React.Component{
                         }
                     )}
                 </div>
-                {this.props.button && <button > Export these plants  </button>}
+                {this.props.button && <button onClick={this.exportToPdf}> Export these plants  </button>}
             </div>
         );
     }
