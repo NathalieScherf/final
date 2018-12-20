@@ -29,7 +29,7 @@ export async function removePlants(removedPlants) {
 
 
 export async function newSelectionPlant(selection){
-//    console.log("selectedPlants", selection );
+    console.log("selectedPlants from action", selection );
     return {
         type: 'SELECT_PLANTS',
         newPlantSelected: selection

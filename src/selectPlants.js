@@ -101,7 +101,7 @@ class SelectPlants extends React.Component{
             });
             this.props.dispatch(selectedPol(target.value));}
 
-        //infoga change för polinator
+        // change in polinator
         if(this.props.polSelected !== undefined){
             console.log("change in polinator", this.props);
             if( this.props.polSelected !== 'no'&&target.value == 'no'){
@@ -140,7 +140,7 @@ class SelectPlants extends React.Component{
             plant_type: plant_type,
         });
 
-        if(this.props.plants !== undefined){
+        if(this.props.plants !== undefined && e.target.checked==true){
         //    console.log("this.state from inside ifblock", this.props, target.name);
             //let plant_type = target.name;
             this.setState({

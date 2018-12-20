@@ -139,48 +139,48 @@ io.on('connection', socket =>{
         //console.log("arrOfPlants after new selection", arrOfPlants);
         console.log("newSelection from changedSelection in index", newSelection);
         // get the new selection of plants:
-        if(newSelection.oldLocation=='sunny', newSelection.oldPol=='yes'){
+        if(newSelection.oldLocation=='sunny' && newSelection.oldPol=='yes'){
             db.getNewSelectedPlantsSunny(newSelection.newPlant).then(results=>{
                 console.log("results from newSelection sunny pol", results);
                 socket.emit('newSelection', results);
             });}
-        else if(newSelection.oldLocation=='partial_shade', newSelection.oldPol=='yes'){
+        if(newSelection.oldLocation=='partial_shade' && newSelection.oldPol=='yes'){
             db.getNewSelectedPlantsPS(newSelection.newPlant).then(results=>{
                 console.log("results from newSelection partial pol", results);
                 socket.emit('newSelection', results);
             });}
-        else if(newSelection.oldLocation=='shade', newSelection.oldPol=='yes'){
+        if(newSelection.oldLocation=='shade' && newSelection.oldPol=='yes'){
             db.getNewSelectedPlantsShade(newSelection.newPlant).then(results=>{
                 console.log("results from newSelection shade pol", results);
                 socket.emit('newSelection', results);
             });}
-        else if(newSelection.oldLocation=='sunny', newSelection.oldPol=='no'){
+        if(newSelection.oldLocation=='sunny' && newSelection.oldPol=='no'){
 
             db.getNewSelectedPlantsSunnyNO(newSelection.newPlant).then(results=>{
                 console.log("results from newSelection sunny pol", results);
                 socket.emit('newSelection', results);
             });}
-        else if(newSelection.oldLocation=='partial_shade', newSelection.oldPol=='no'){
+        if(newSelection.oldLocation=='partial_shade' && newSelection.oldPol=='no'){
             db.getNewSelectedPlantsPSNO(newSelection.newPlant).then(results=>{
                 console.log("results from newSelection partial pol", results);
                 socket.emit('newSelection', results);
             });}
-        else if(newSelection.oldLocation=='shade', newSelection.oldPol=='no'){
+        if(newSelection.oldLocation=='shade'&& newSelection.oldPol=='no'){
             db.getNewSelectedPlantsShadeNO(newSelection.newPlant).then(results=>{
                 console.log("results from newSelection shade pol", results);
                 socket.emit('newSelection', results);
             });}
-        else     if(newSelection.oldLocation=='sunny', newSelection.oldPol=='indeter'){
+        if(newSelection.oldLocation=='sunny' && newSelection.oldPol=='indeter'){
             db.getNewSelectedPlantsSunnyIND(newSelection.newPlant).then(results=>{
                 console.log("results from newSelection sunny pol", results);
                 socket.emit('newSelection', results);
             });}
-        else if(newSelection.oldLocation=='partial_shade', newSelection.oldPol=='indeter'){
+        if(newSelection.oldLocation=='partial_shade' && newSelection.oldPol=='indeter'){
             db.getNewSelectedPlantsPSIND(newSelection.newPlant).then(results=>{
                 console.log("results from newSelection partial pol", results);
                 socket.emit('newSelection', results);
             });}
-        else if(newSelection.oldLocation=='shade', newSelection.oldPol=='indeter'){
+        if(newSelection.oldLocation=='shade'&& newSelection.oldPol=='indeter'){
             db.getNewSelectedPlantsShadeIND(newSelection.newPlant).then(results=>{
                 console.log("results from newSelection shade pol", results);
                 socket.emit('newSelection', results);
