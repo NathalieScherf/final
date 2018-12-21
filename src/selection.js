@@ -30,8 +30,8 @@ class Selection extends React.Component{
             .then((canvas) => {
                 const imgData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF();
-                pdf.addImage(imgData, 'PNG', 0, 0);
-                pdf.save("download.pdf");
+                pdf.addImage(imgData, 'PNG', -30, 10,);
+                pdf.save("myBalconyPlants.pdf");
             })
         ;
     }
@@ -41,8 +41,8 @@ class Selection extends React.Component{
 
         return(
             <div id='selection'>
-
-                {this.props.button && <h1>HERE IS YOUR SELECTION!</h1>}
+                {this.props.plants && this.props.plants.length === 0  && <h1>No Results!</h1>}
+                {this.props.plants && this.props.plants.length >0 && <h1>HERE IS YOUR SELECTION!</h1>}
 
                 <div className='selection-contianer'
                     ref={elem => (this.elem = elem)}>
@@ -56,7 +56,17 @@ class Selection extends React.Component{
                                     <img  src={plant.img} />
                                     <div className='plantInfo'>
                                         <h3>{plant.name} </h3>
+                                        <div className='icons'>
+                                            {plant.polinator==true&&<div className='logo'> <img  src='/bee-logo.jpg' />  </div> }
+                                            {plant.sunny==true&& <div className='logo'> <img  src='/sun.png' /> </div>  }
+                                            {plant.partial_shade==true&& <div className='logo'> <img  src='/sun_half.png' /> </div>  }
+                                            {plant.shade==true&& <div className='logo'> <img  src='/sun_empty.png' /> </div>  }
+                                        </div>
                                         <p>{plant.description}</p>
+                                        <p>Put this plant in a {plant.size} sized container  {plant.sunny==true&& <span> in full sun</span> }</p>
+
+
+
 
 
                                     </div>
@@ -66,7 +76,7 @@ class Selection extends React.Component{
                         }
                     )}
                 </div>
-                {this.props.button && <button onClick={this.exportToPdf}> Export these plants  </button>}
+                {this.props.plants && this.props.plants.length >0 && <button onClick={this.exportToPdf}> Export these plants  </button>}
             </div>
         );
     }

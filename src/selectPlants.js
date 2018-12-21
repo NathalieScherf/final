@@ -186,7 +186,7 @@ class SelectPlants extends React.Component{
 
 
 
-                        <h3>What types of plants do you like?</h3>
+                        <h3>What type of plants do you like?</h3>
                         <label>Flowers
                             <input type="checkbox"  name="flower" onChange={this.handleInputChangePlant}/>
                         </label>
