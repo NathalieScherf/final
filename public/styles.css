@@ -9,7 +9,7 @@
 }
 .selectedItem img{
 
-    width: 200px;
+    width: 250px;
     height: auto;
     border: 5px black solid;
     border-radius: 20px;
@@ -22,7 +22,7 @@
     flex-direction: column;
 }
 button{
-    margin: 15px;
+    margin: 20px;
     padding: 10px;
 
 }
@@ -62,4 +62,8 @@ a{
 margin: 5px;
     height: 20px;
     width: 20px;
+}
+label{
+    padding: 5px;
+    margin-bottom: 8px;
 }

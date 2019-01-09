@@ -7,6 +7,11 @@ class Selection extends React.Component{
     constructor(){
         super();
         this.exportToPdf = this.exportToPdf.bind(this);
+        this.reloadPage=this.reloadPage.bind(this);
+    }
+    reloadPage(){
+        console.log("page reloaded");
+        window.location.reload();
     }
     exportToPdf(e){
 
@@ -42,7 +47,7 @@ class Selection extends React.Component{
         return(
             <div id='selection'>
                 {this.props.plants && this.props.plants.length === 0  && <h1>No Results!</h1>}
-                {this.props.plants && this.props.plants.length >0 && <h1>HERE IS YOUR SELECTION!</h1>}
+                {this.props.plants && this.props.plants.length >0 && <h1>HERE IS YOUR SELECTION:</h1>}
 
                 <div className='selection-contianer'
                     ref={elem => (this.elem = elem)}>
@@ -63,7 +68,7 @@ class Selection extends React.Component{
                                             {plant.shade==true&& <div className='logo'> <img  src='/sun_empty.png' /> </div>  }
                                         </div>
                                         <p>{plant.description}</p>
-                                        <p>Put this plant in a {plant.size} sized container  {plant.sunny==true&& <span> in full sun</span> }</p>
+                                        <p>Put this plant in a {plant.size} sized container  </p>
 
 
 
@@ -77,6 +82,7 @@ class Selection extends React.Component{
                     )}
                 </div>
                 {this.props.plants && this.props.plants.length >0 && <button onClick={this.exportToPdf}> Export these plants  </button>}
+                {this.props.button &&     <button onClick={this.reloadPage} > Remove this  selection </button>}
             </div>
         );
     }

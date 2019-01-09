@@ -83,7 +83,7 @@ class SelectPlants extends React.Component{
     handleInputChangePol(e) {
 
         const target = e.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        //const value = target.type === 'checkbox' ? target.checked : target.value;
 
         if(target.value == "yes"){
             this.setState({
@@ -186,7 +186,7 @@ class SelectPlants extends React.Component{
 
 
 
-                        <h3>What type of plants do you like?</h3>
+                        <h3>Which  type of plants do you like?</h3>
                         <label>Flowers
                             <input type="checkbox"  name="flower" onChange={this.handleInputChangePlant}/>
                         </label>
@@ -197,13 +197,13 @@ class SelectPlants extends React.Component{
                             <input type="checkbox" name="vegetable" onChange={this.handleInputChangePlant}/>
                         </label>
                         <h3>How much light does your balcony get?</h3>
-                        <label>Sunny
+                        <label>Sun all day
                             <input type="radio"  name="light" value="sunny" onChange={this.handleInputChangeLoc}/>
                         </label>
-                        <label>Shady
+                        <label>Shade all day
                             <input type="radio" name="light" value="shade" onChange={this.handleInputChangeLoc}/>
                         </label>
-                        <label>Both
+                        <label>Sun and shade
                             <input type="radio" name="light" value="partial_shade" onChange={this.handleInputChangeLoc}/>
                         </label>
                         <h3>Do you want to attract polinators?</h3>
