@@ -23,19 +23,24 @@ With this tool you are asked 3 questions in order to select the most fitting opt
 
 
 Once the button "show selection" is clicked, a list of plants are displayed, with a short description of each plant.
+
 ![Selection](/imagesReadMe/SelectionAndButtons.PNG)
 
 
 
 If you want to change any of your selections or add a type of plant, just make the change in the seleciton above and the list will update instantaneously. 
-If you do not like the seleciton, press the button "reset selection" and you are back to square one again. 
+
+If you do not like the selection, press the button "reset selection" and you are back to square one again. 
+
 If you like the selection, go a head and save it as a pdf document. 
 
 
 ## Future features
-* a selection by color
-* a function to remove individual plants from the selection list
-* a graphic indication of size for each plant
-* a search for individual plants 
+
+* A selection by color
+* A function to remove individual plants from the selection list
+* A graphic indication of size for each plant
+* A search for individual plants 
+* Bug fixes
 
 
