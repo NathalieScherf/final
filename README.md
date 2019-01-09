@@ -19,12 +19,12 @@ With this tool you are asked 3 questions in order to select the most fitting opt
 1. Choose if you want to plant insect-supportive plants
 
 ![Selection](/imagesReadMe/SelctionNew.PNG)
-Format: ![form](url)
+
 
 
 Once the button "show selection" is clicked, a list of plants are displayed, with a short description of each plant.
 ![Selection](/imagesReadMe/SelectionAndButtons.PNG)
-Format: ![Selection](url)
+
 
 
 If you want to change any of your selections or add a type of plant, just make the change in the seleciton above and the list will update instantaneously. 
