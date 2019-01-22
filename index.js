@@ -227,7 +227,7 @@ io.on('connection', socket =>{
     socket.on('changedSelectionLocBoth', newLocation=>{
         var plant=arrOfPlants[0];
         var pol = arrOfPlants[2];
-        console.log("pol from change selection", pol);
+        console.log("pol  and plant from change selection", pol, plant);
         if(pol=='indeter'){
             db.getNewLocBoth(newLocation, plant).then(results=>{
             //console.log("results from newLocation", results);
@@ -288,9 +288,6 @@ io.on('connection', socket =>{
                 socket.emit('newPolinator', results);
             });
         }
-
-
-
     } );
     //to indeter
     socket.on('changedSelectionPolINDETER', newPol =>{
@@ -314,19 +311,5 @@ io.on('connection', socket =>{
                 socket.emit('newPolinator', results);
             });
         }
-    } );
-
-
-    socket.on('removeSelection', remPlants=>{
-        socket.emit('removeSelection', remPlants);
     });
-    //reload selection with location:
-    socket.on('changeLocation', (location, selection) =>{
-        console.log("in cahnge location", location, selection);
-    //    db.getLocation(location);
-    });
-    socket.on('exportToPdf', list=>{
-        console.log("export to pdf", list);
-    });
-
 });

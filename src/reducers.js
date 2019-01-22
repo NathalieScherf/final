@@ -42,24 +42,22 @@ export default function reducer(state = {}, action) {
         };
     }
     if(action.type=='CHANGE_LOC'){
-        //filter:
-    //    console.log("from reducer change loc", state.plants, "and", action.plants, "and", state.location);
+
         state = {
             ...state,
             plants:  action.plants
         };
     }
+
     if(action.type=='CHANGE_POL'){
-    
+
         state = {
             ...state,
             plants:  action.plants
         };
     }
     if(action.type=='REMOVE_PLANTS'){
-    //    console.log("reducer REMOVED plants", action.remPlants);
 
-        //filter:
         state = {
             ...state,
             plants: state.plants && state.plants.filter(plant => {

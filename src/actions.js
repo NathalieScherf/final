@@ -18,7 +18,16 @@ export async function changeDisplay(listOfPlants) {
 }
 
 
-export async function removePlants(removedPlants) {
+/*export async function removePlants(removedPlants) {
+
+//    console.log("remove plants ", removedPlants);
+    return {
+        type: 'REMOVE_PLANTS',
+        remPlants: removedPlants
+    };
+}*/
+
+export async function removePlantType(removedPlants) {
 
 //    console.log("remove plants ", removedPlants);
     return {
@@ -26,7 +35,6 @@ export async function removePlants(removedPlants) {
         remPlants: removedPlants
     };
 }
-
 
 export async function newSelectionPlant(selection){
     console.log("selectedPlants from action", selection );
@@ -65,6 +73,7 @@ export async function changeLocation(selection){
         plants: selection
     };
 }
+
 export async function changePolinator(selection){
     //console.log("changedLocation", selection);
     return {

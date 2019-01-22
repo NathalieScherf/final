@@ -2,7 +2,7 @@ import React from 'react';
 import{ connect } from 'react-redux';
 import {initSocket} from './socket';
 import Selection from './selection';
-import {hideButton, selectedLoc, newSelectionPlant, selectedPol} from './actions';
+import {hideButton, selectedLoc, newSelectionPlant, selectedPol,removePlantType} from './actions';
 class SelectPlants extends React.Component{
     constructor(){
         super();
@@ -59,6 +59,8 @@ class SelectPlants extends React.Component{
 
             let socket = initSocket();
             socket.emit('changedSelectionLocBoth', true);
+
+            //this.props.dispatch(changeLocForRedux(location));
         }
         if(this.props.location=='shade' && target.value =='partial_shade'){
             console.log("this.state from inside ifblock", this.props, target.value);
@@ -112,7 +114,7 @@ class SelectPlants extends React.Component{
                 var pol=target.value;
 
                 socket.emit('changedSelectionPolNO', {oldLocation, pol});
-                //socket.emit('', true);
+
             }
             if(this.props.polSelected !== 'yes'&&target.value == 'yes' ){
                 console.log("change to yes");
@@ -141,14 +143,15 @@ class SelectPlants extends React.Component{
         });
 
         if(this.props.plants !== undefined && e.target.checked==true){
-        //    console.log("this.state from inside ifblock", this.props, target.name);
+            console.log("this.state from inside ifblock", this.props, target.name);
             //let plant_type = target.name;
             this.setState({
                 plant_type: plant_type,
             });
             this.props.dispatch(newSelectionPlant(plant_type));
+
             //in i props
-            console.log("this.state from inside ifblock in change plant", this.props);
+            console.log("this.props from inside ifblock in change plant", this.props);
             let socket = initSocket();
             var newPlant=target.name;
             var oldLocation=this.props.location;
@@ -158,8 +161,9 @@ class SelectPlants extends React.Component{
         }
         if (e.target.checked == false){
             console.log("filter out", target.name);
-            let socket = initSocket();
-            socket.emit('removeSelection', target.name);
+            this.props.dispatch(removePlantType(target.name));
+            //let socket = initSocket();
+            //socket.emit('removeSelection', target.name);
         }
 
 
