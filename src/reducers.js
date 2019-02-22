@@ -10,6 +10,12 @@ export default function reducer(state = {}, action) {
             newPlantSelected: action.newPlantSelected
         };
     }
+    if(action.type=='INIT_SELECT_PLANTS'){
+        state={
+            ...state,
+            plants: action.plants
+        };
+    }
     if(action.type=='SELECT_LOC'){
     //    console.log("state from loc in reducer:", action.location);
         state = {

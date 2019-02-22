@@ -1,5 +1,6 @@
 
 
+
 export async function showPlants(listOfPlants) {
 
 //    console.log("actions showPlants", listOfPlants);
@@ -8,6 +9,17 @@ export async function showPlants(listOfPlants) {
         plants: listOfPlants
     };
 }
+
+export async function selectionPlant(listOfPlants) {
+
+    console.log("actions selection Plant in actions", listOfPlants);
+    return {
+        type: 'INIT_SELECT_PLANTS',
+        plants: listOfPlants
+    };
+}
+
+
 export async function changeDisplay(listOfPlants) {
 
     //console.log("add plants in action ", listOfPlants);

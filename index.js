@@ -61,15 +61,16 @@ server.listen(8080, function() {
 
 // all of the server side socket code goes here below server.listen
 
-// do I need an object of the current plant selection to modify when new selection is made? OR do a whole new query?
+
 let arrOfPlants=[];
+let newArrOfPlants=[];
 io.on('connection', socket =>{
     console.log(`socket  connected`);
 
     socket.on('plantsSelected', plantSelection =>{
-        console.log("in plantsSelected", plantSelection);
+        
         arrOfPlants=Object.values(plantSelection);
-        console.log("arrOfPlants", arrOfPlants);
+
         // for sunny location and value for polinator
         if(plantSelection.sunny &&plantSelection.polinator !=='indeter'){
             db.getSelectedPlantsSun(plantSelection.plant_type, plantSelection.polinator, plantSelection.sunny).then( results =>{
@@ -135,9 +136,11 @@ io.on('connection', socket =>{
 
     //reload selection if change in form in selectPlants.js
     socket.on('changedSelection', newSelection=>{
-        //arrOfPlants=Object.values(newSelection);
-        //console.log("arrOfPlants after new selection", arrOfPlants);
+        newArrOfPlants=Object.values(newSelection);
+        console.log("arrOfPlants after new selection", newArrOfPlants);
         console.log("newSelection from changedSelection in index", newSelection);
+
+        // check if change in plant type, i.e. if newSelection in change pol or loc.
         // get the new selection of plants:
         if(newSelection.oldLocation=='sunny' && newSelection.oldPol=='yes'){
             db.getNewSelectedPlantsSunny(newSelection.newPlant).then(results=>{
@@ -191,8 +194,15 @@ io.on('connection', socket =>{
     // get the new selection of plants based on location:
     //for change to shade:
     socket.on('changedSelectionLocShade', newLocation=>{
-        console.log("arrOfPlants from loc shade", arrOfPlants, newLocation);
-        var plant=arrOfPlants[0];
+        console.log("arrOfPlants from loc shade", arrOfPlants, newArrOfPlants, newLocation);
+        var plant;
+        if(newArrOfPlants.length>0){
+            plant= newArrOfPlants[0];
+            console.log("new plant for loc shade", plant);
+        }
+        else{plant=arrOfPlants[0];}
+        // check if change in plant type, i.e. if newSelection in change pol or loc.
+
         var pol = arrOfPlants[2];
         console.log("value of pol in changedSelectionLocShade", pol);
         //chekc value of pol: ture or false:
@@ -210,7 +220,14 @@ io.on('connection', socket =>{
 
     //for change to sun:
     socket.on('changedSelectionLocSun', newLocation=>{
-        var plant=arrOfPlants[0];
+        var plant;
+        if(newArrOfPlants.length>0){
+            plant= newArrOfPlants[0];
+            console.log("new plant for loc shade", plant);
+        }
+        else{plant=arrOfPlants[0];}
+        // check if change in plant type, i.e. if newSelection in change pol or loc.
+
         var pol = arrOfPlants[2];
         if(pol=='indeter'){
             db.getNewLocSun(newLocation, plant).then(results=>{
@@ -225,7 +242,14 @@ io.on('connection', socket =>{
 
     //for change to both:
     socket.on('changedSelectionLocBoth', newLocation=>{
-        var plant=arrOfPlants[0];
+        var plant;
+        if(newArrOfPlants.length>0){
+            plant= newArrOfPlants[0];
+            console.log("new plant for loc shade", plant);
+        }
+        else{plant=arrOfPlants[0];}
+
+
         var pol = arrOfPlants[2];
         console.log("pol  and plant from change selection", pol, plant);
         if(pol=='indeter'){
@@ -241,9 +265,16 @@ io.on('connection', socket =>{
     //change of polinator:
     //to no
     socket.on('changedSelectionPolNO', newPol =>{
-        //värdet pa pol no = true:
-        //planta
-        var plant=arrOfPlants[0];
+
+        var plant;
+
+        if(newArrOfPlants.length>0){
+            plant= newArrOfPlants[0];
+            console.log("new plant for loc shade", plant);
+        }
+        else{plant=arrOfPlants[0];}
+
+
         //location:  if old loc shade: oldLocation:
         if(newPol.oldLocation=='shade'){
             db.getNewSelectedPlantsShadeNO(plant).then(results=>{
@@ -268,7 +299,14 @@ io.on('connection', socket =>{
     } );
     //to yes
     socket.on('changedSelectionPolYES', newPol =>{
-        var plant=arrOfPlants[0];
+        var plant;
+
+        if(newArrOfPlants.length>0){
+            plant= newArrOfPlants[0];
+            console.log("new plant for loc shade", plant);
+        }
+        else{plant=arrOfPlants[0];}
+
         if(newPol.oldLocation=='shade'){
             db.getNewSelectedPlantsShade(plant).then(results=>{
                 console.log("results from query changed selection pol yes, shade" ,results );
@@ -291,7 +329,13 @@ io.on('connection', socket =>{
     } );
     //to indeter
     socket.on('changedSelectionPolINDETER', newPol =>{
-        var plant=arrOfPlants[0];
+        var plant;
+
+        if(newArrOfPlants.length>0){
+            plant= newArrOfPlants[0];
+            console.log("new plant for loc shade", plant);
+        }
+        else{plant=arrOfPlants[0];}
         if(newPol.oldLocation=='shade'){
             db.getNewSelectedPlantsShadeIND(plant).then(results=>{
                 console.log("results from query changed selection pol indeter, shade" ,results );

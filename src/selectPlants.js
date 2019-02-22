@@ -2,7 +2,7 @@ import React from 'react';
 import{ connect } from 'react-redux';
 import {initSocket} from './socket';
 import Selection from './selection';
-import {hideButton, selectedLoc, newSelectionPlant, selectedPol,removePlantType} from './actions';
+import {hideButton, selectedLoc, newSelectionPlant, selectedPol,removePlantType, selectionPlant} from './actions';
 class SelectPlants extends React.Component{
     constructor(){
         super();
@@ -17,7 +17,7 @@ class SelectPlants extends React.Component{
 
     handleInputChangeLoc(e) {
         const target = e.target;
-        //const value = target.type === 'checkbox' ? target.checked : target.value;
+
         const location = target.value;
         //this.props.dispatch(selectedLoc(location));
         //    let socket = initSocket();
@@ -46,7 +46,7 @@ class SelectPlants extends React.Component{
         if(this.props.location =='sunny' && target.value =='shade'){
             console.log("this.state from inside ifblock",this.state, this.props, target.value);
             let socket = initSocket();
-            //    var LocObject={shade: true};
+
             socket.emit('changedSelectionLocShade', true);
         }
         if(this.props.location == 'partial_shade' && target.value =='shade'){
@@ -60,7 +60,6 @@ class SelectPlants extends React.Component{
             let socket = initSocket();
             socket.emit('changedSelectionLocBoth', true);
 
-            //this.props.dispatch(changeLocForRedux(location));
         }
         if(this.props.location=='shade' && target.value =='partial_shade'){
             console.log("this.state from inside ifblock", this.props, target.value);
@@ -136,15 +135,18 @@ class SelectPlants extends React.Component{
     handleInputChangePlant(e) {
         const target = e.target;
         //const value = target.type === 'checkbox' ? target.checked : target.value;
-
+        console.log("props in change plant", target.name);
         let plant_type = target.name;
         this.setState({
             plant_type: plant_type,
         });
 
+        //initial selection with multiple plants:
+        //1. add all plant types to state, i.e. allow for an array in plant_type?
+        // dispatch to store and fetch from there ?
+        //this.props.dispatch(selectionPlant(target.name));
         if(this.props.plants !== undefined && e.target.checked==true){
-            console.log("this.state from inside ifblock", this.props, target.name);
-            //let plant_type = target.name;
+            console.log("this.state from inside ifblock", this.props, this.state, target.name);
             this.setState({
                 plant_type: plant_type,
             });
@@ -162,8 +164,7 @@ class SelectPlants extends React.Component{
         if (e.target.checked == false){
             console.log("filter out", target.name);
             this.props.dispatch(removePlantType(target.name));
-            //let socket = initSocket();
-            //socket.emit('removeSelection', target.name);
+
         }
 
 
