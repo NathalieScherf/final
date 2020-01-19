@@ -1,15 +1,17 @@
 {
-  "name": "spiced-social-network",
-  "version": "1.0.0",
+  "name": "plant-your-balcony",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "node build.js",
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "start:bundle": "node bundle-server.js"
   },
   "engines": {
-    "node": "8.11.3"
+    "node": "8.11.3",
+    "npm": ">=6"
   },
   "dependencies": {
     "axios": "^0.15.3",
@@ -50,5 +52,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "enzyme": "^3.11.0",
+    "jest": "^24.9.0"
+  }
 }

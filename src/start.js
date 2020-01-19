@@ -14,8 +14,6 @@ const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxProm
 
 let component;
 
-
 component = (initSocket(store), <Provider store={store}><App /></Provider>);
 
-// only call ReactDOM once, i.e. here to render the page:
 ReactDOM.render(component, document.querySelector("main"));

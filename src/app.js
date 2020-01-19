@@ -1,7 +1,7 @@
 import React from 'react';
 //import axios from './axios';
 import Nav from './nav';
-import SelectPlants from './selectPlants';
+import SelectPlants from './SelectPlants';
 import About from './about';
 import {BrowserRouter, Route} from 'react-router-dom';
 
