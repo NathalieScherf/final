@@ -1,8 +1,8 @@
 import React from 'react';
 //import axios from './axios';
-import Nav from './nav';
+import Nav from './Nav';
 import SelectPlants from './SelectPlants';
-import About from './about';
+import About from './About';
 import {BrowserRouter, Route} from 'react-router-dom';
 
 export default class App extends React.Component{

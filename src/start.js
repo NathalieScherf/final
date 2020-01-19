@@ -7,7 +7,7 @@ import reduxPromise from 'redux-promise';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from './reducers';
 
-import App from './app';
+import App from './App';
 import {initSocket} from './socket';
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
